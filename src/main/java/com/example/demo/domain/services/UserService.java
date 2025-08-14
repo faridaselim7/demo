@@ -1,7 +1,8 @@
 package com.example.demo.domain.services;
 
+import com.example.demo.domain.entities.User;
 import com.example.demo.domain.repos.UserRepo;
-import com.example.demo.web.models.User;
+import com.example.demo.web.models.UserCreateRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,13 @@ public class UserService {
         this.userRepo = userRepo;
     }
 
-    public User createUser(User user) {
+    public User createUser(UserCreateRequest request) {
+        User user = new User();
+        user.setUsername(request.getUsername());
+        user.setPassword(request.getPassword());
+        user.setEmail(request.getEmail());
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
         return userRepo.save(user);
     }
 
@@ -28,13 +35,13 @@ public class UserService {
         return userRepo.findById(id);
     }
 
-    public Optional<User> updateUser(Long id, User updatedUser) {
+    public Optional<User> updateUser(Long id, UserCreateRequest request) {
         return userRepo.findById(id).map(user -> {
-            user.setUsername(updatedUser.getUsername());
-            user.setPassword(updatedUser.getPassword());
-            user.setEmail(updatedUser.getEmail());
-            user.setFirstName(updatedUser.getFirstName());
-            user.setLastName(updatedUser.getLastName());
+            user.setUsername(request.getUsername());
+            user.setPassword(request.getPassword());
+            user.setEmail(request.getEmail());
+            user.setFirstName(request.getFirstName());
+            user.setLastName(request.getLastName());
             return userRepo.save(user);
         });
     }

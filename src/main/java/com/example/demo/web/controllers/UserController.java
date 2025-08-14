@@ -1,7 +1,9 @@
 package com.example.demo.web.controllers;
 
+import com.example.demo.domain.entities.User;
 import com.example.demo.domain.services.UserService;
-import com.example.demo.web.models.User;
+import com.example.demo.web.models.UserCreateRequest;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +20,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@RequestBody @Valid UserCreateRequest user) {
         return ResponseEntity.ok(userService.createUser(user));
     }
 
@@ -35,7 +37,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody @Valid UserCreateRequest updatedUser) {
         return userService.updateUser(id, updatedUser)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
