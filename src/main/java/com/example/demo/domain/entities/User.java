@@ -1,4 +1,4 @@
-package com.example.demo.web.models;
+package com.example.demo.domain.entities;
 
 import jakarta.persistence.*;
 
@@ -63,3 +63,4 @@ public class User {
         this.lastName = lastName;
     }
 }
+
