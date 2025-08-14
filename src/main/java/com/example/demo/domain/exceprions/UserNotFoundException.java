@@ -1,7 +1,7 @@
 package com.example.demo.domain.exceprions;
 
 
-import com.bank.userservice.application.exceprions.domain.ApplicationException;
+import com.example.demo.domain.exceprions.domain.ApplicationException;
 
 public class UserNotFoundException extends ApplicationException {
     public UserNotFoundException() {

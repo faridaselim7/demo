@@ -3,6 +3,7 @@ package com.example.demo.web.controllers;
 import com.example.demo.domain.entities.User;
 import com.example.demo.domain.services.UserService;
 import com.example.demo.web.models.UserCreateRequest;
+import com.example.demo.web.models.UserListRes;
 import com.example.demo.web.models.UserRes;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<UserListRes> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
