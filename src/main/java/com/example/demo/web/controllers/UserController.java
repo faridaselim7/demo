@@ -3,7 +3,9 @@ package com.example.demo.web.controllers;
 import com.example.demo.domain.entities.User;
 import com.example.demo.domain.services.UserService;
 import com.example.demo.web.models.UserCreateRequest;
+import com.example.demo.web.models.UserRes;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,7 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
+
     UserService userService;
 
     public UserController(UserService userService) {
@@ -20,7 +23,8 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody @Valid UserCreateRequest user) {
+    public ResponseEntity<UserRes> createUser(@RequestBody @Valid UserCreateRequest user) {
+        UserRes userRes = userService.createUser(user);
         return ResponseEntity.ok(userService.createUser(user));
     }
 
