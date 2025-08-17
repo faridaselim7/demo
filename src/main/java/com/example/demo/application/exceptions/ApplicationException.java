@@ -1,4 +1,4 @@
-package com.example.demo.domain.exceptions;
+package com.example.demo.application.exceptions;
 
 public abstract class ApplicationException extends RuntimeException {
 

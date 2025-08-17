@@ -1,29 +1,28 @@
-package com.example.demo.domain.services;
+package com.example.demo.application.services.impl;
 
-import com.example.demo.domain.entities.User;
-import com.example.demo.domain.exceptions.UserAlreadyExistsException;
-import com.example.demo.domain.exceptions.UserNotFoundException;
-import com.example.demo.domain.repos.UserRepo;
-import com.example.demo.domain.services.mappers.UserMapper;
-import com.example.demo.web.models.UserCreateRequest;
-import com.example.demo.web.models.UserCreateResponse;
-import com.example.demo.web.models.UserUpdateRequest;
+import com.example.demo.application.models.User;
+import com.example.demo.application.exceptions.UserAlreadyExistsException;
+import com.example.demo.application.exceptions.UserNotFoundException;
+import com.example.demo.application.repos.UserRepo;
+import com.example.demo.application.services.UserService;
+import com.example.demo.application.services.mappers.UserMapper;
+import com.example.demo.apis.resources.UserCreateRequest;
+import com.example.demo.apis.resources.UserCreateResponse;
+import com.example.demo.apis.resources.UserUpdateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class UserService {
+public class UserServicesImpl implements UserService {
 
-    @Autowired
-    private UserRepo userRepo;
+        @Autowired
+        private UserRepo userRepo;
 
-    @Autowired
-    private UserMapper userMapper;
+        @Autowired
+        private UserMapper userMapper;
 
-    public UserCreateResponse createUser(UserCreateRequest request) {
+        public UserCreateResponse createUser(UserCreateRequest request) {
         Optional<User> userEntity = userRepo.findByEmailOrUsername(request.getEmail(),request.getUsername());
         if (!userEntity.isEmpty()) {
             throw new UserAlreadyExistsException();
@@ -33,20 +32,20 @@ public class UserService {
         return userMapper.toResponse(savedUser);
     }
 
-    public List<UserCreateResponse> getAllUsers() {
+        public List<UserCreateResponse> getAllUsers() {
         return userRepo.findAll()
                 .stream()
                 .map(userMapper::toResponse)
                 .toList();
     }
 
-    public UserCreateResponse getUserById(Long id) {
+        public UserCreateResponse getUserById(String id) {
         User user = userRepo.findById(id)
                 .orElseThrow(UserNotFoundException::new);
         return userMapper.toResponse(user);
     }
 
-    public UserCreateResponse updateUser(Long id, UserUpdateRequest request) {
+        public UserCreateResponse updateUser(String id, UserUpdateRequest request) {
         User existingUser = userRepo.findById(id)
                 .orElseThrow(UserNotFoundException::new);
 
@@ -60,10 +59,12 @@ public class UserService {
     }
 
 
-    public void deleteUser(Long id) {
+        public void deleteUser(String id) {
         User existingUser = userRepo.findById(id)
                 .orElseThrow(UserNotFoundException::new);
 
         userRepo.delete(existingUser);
     }
 }
+
+

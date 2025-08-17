@@ -1,4 +1,4 @@
-package com.example.demo.web.models;
+package com.example.demo.apis.resources;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
