@@ -5,11 +5,8 @@ import com.example.demo.apis.resources.UserCreateRequest;
 import com.example.demo.apis.resources.UserCreateResponse;
 import com.example.demo.apis.resources.UserUpdateRequest;
 import jakarta.validation.Valid;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
-@Service
 public interface UserService {
 
     UserCreateResponse createUser(@Valid UserCreateRequest user) throws ApplicationException;
